@@ -2,7 +2,7 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 import unittest
-from subscriber import Subscriber
+from model.subscriber import Subscriber
 
 class TestAddSub(unittest.TestCase):
     def setUp(self):
