@@ -1,4 +1,3 @@
-
 from selenium.webdriver.support.ui import Select
 
 class SubscriberHelper:
@@ -8,6 +7,7 @@ class SubscriberHelper:
 
     def create(self, subscriber):
         wd = self.app.wd
+        self.open_home_page()
         # init subscriber creation
         wd.find_element_by_link_text("add new").click()
         # fill profile
@@ -18,6 +18,7 @@ class SubscriberHelper:
 
     def edit_first_sub(self, subscriber):
         wd = self.app.wd
+        self.open_home_page()
         # select first sub
         wd.find_element_by_name("selected[]").click()
         # submit edition
@@ -83,6 +84,7 @@ class SubscriberHelper:
 
     def delete_first_subscriber(self):
         wd = self.app.wd
+        self.open_home_page()
         # select first group
         wd.find_element_by_name("selected[]").click()
         # submit deletion
@@ -92,3 +94,7 @@ class SubscriberHelper:
     def return_to_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
+
+    def open_home_page(self):
+        wd = self.app.wd
+        wd.get("http://localhost/addressbook/")
