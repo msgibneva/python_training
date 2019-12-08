@@ -1,9 +1,8 @@
 class Subscriber:
 
-    def __init__(self, name, secondname, surname, nick, title, companyname, homeaddress, homephone,
-                              mobilephone, work, faxnumber, email1, email2, email3, homesite, bday, bmonth, aday,
-                              amonth, byear, ayear, addresssec, sechomenumber, notes):
-        self.name = name
+    def __init__(self, firstname=None, secondname=None, surname=None, nick=None, title=None, companyname=None, homeaddress=None, homephone=None,
+                              mobilephone=None, work=None, faxnumber=None, email1=None, email2=None, email3=None, homesite=None, addresssec=None, sechomenumber=None, notes=None):
+        self.firstname = firstname
         self.secondname = secondname
         self.surname = surname
         self.nick = nick
@@ -18,12 +17,6 @@ class Subscriber:
         self.email2 = email2
         self.email3 = email3
         self.homesite = homesite
-        self.bday = bday
-        self.bmonth = bmonth
-        self.aday = aday
-        self.amonth = amonth
-        self.byear = byear
-        self.ayear = ayear
         self.addresssec = addresssec
         self.sechomenumber = sechomenumber
         self.notes = notes
