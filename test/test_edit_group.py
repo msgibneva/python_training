@@ -2,5 +2,8 @@
 from model.group import Group
 
 
-def test_edit_group(app):
-    app.group.edit_first_group(Group(name="newnameofgroup", header="newgroupheader", footer="newcomment"))
+def test_edit_group_name(app):
+    app.group.edit_first_group(Group(name="new"))
+
+def test_edit_group_header(app):
+    app.group.edit_first_group(Group(header="new"))
