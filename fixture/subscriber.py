@@ -63,6 +63,7 @@ class SubscriberHelper:
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
+        self.return_to_home_page()
 
     def select_first_subscriber(self):
         wd = self.app.wd
@@ -70,11 +71,12 @@ class SubscriberHelper:
 
     def return_to_home_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home page").click()
+        wd.find_element_by_link_text("home").click()
 
     def open_home_page(self):
         wd = self.app.wd
-        wd.get("http://localhost/addressbook/")
+        if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_link_text("home"))) > 0:
+            wd.get("http://localhost/addressbook/")
 
     def count(self):
         wd = self.app.wd
