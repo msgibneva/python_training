@@ -1,7 +1,7 @@
 class Subscriber:
 
     def __init__(self, firstname=None, secondname=None, surname=None, nick=None, title=None, companyname=None, homeaddress=None, homephone=None,
-                              mobilephone=None, work=None, faxnumber=None, email1=None, email2=None, email3=None, homesite=None, addresssec=None, sechomenumber=None, notes=None):
+                              mobilephone=None, work=None, faxnumber=None, email1=None, email2=None, email3=None, homesite=None, addresssec=None, sechomenumber=None, notes=None, id=None):
         self.firstname = firstname
         self.secondname = secondname
         self.surname = surname
@@ -20,3 +20,4 @@ class Subscriber:
         self.addresssec = addresssec
         self.sechomenumber = sechomenumber
         self.notes = notes
+        self.id = id

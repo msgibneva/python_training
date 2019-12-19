@@ -3,4 +3,7 @@ from model.subscriber import Subscriber
 def test_delete_first_subscriber(app):
     if app.subscriber.count() == 0:
         app.subscriber.create(Subscriber(firstname="subname"))
+    old_sub = app.subscriber.get_sub_list()
     app.subscriber.delete_first_subscriber()
+    new_sub = app.subscriber.get_sub_list()
+    assert len(old_sub) - 1 == len(new_sub)

@@ -1,4 +1,4 @@
-from selenium.webdriver.support.ui import Select
+from model.subscriber import Subscriber
 
 class SubscriberHelper:
 
@@ -82,3 +82,13 @@ class SubscriberHelper:
         wd = self.app.wd
         self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_sub_list(self):
+        wd = self.app.wd
+        self.open_home_page()
+        sub = []
+        for element in wd.find_elements_by_css_selector("tr[name=entry]"):
+            text = element.find_element_by_css_selector("td")
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            sub.append(Subscriber(firstname=text, id=id))
+        return sub
