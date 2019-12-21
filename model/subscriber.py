@@ -1,10 +1,13 @@
+from sys import maxsize
+
+
 class Subscriber:
 
-    def __init__(self, firstname=None, secondname=None, surname=None, nick=None, title=None, companyname=None, homeaddress=None, homephone=None,
+    def __init__(self, firstname=None, secondname=None, lastname=None, nick=None, title=None, companyname=None, homeaddress=None, homephone=None,
                               mobilephone=None, work=None, faxnumber=None, email1=None, email2=None, email3=None, homesite=None, addresssec=None, sechomenumber=None, notes=None, id=None):
         self.firstname = firstname
         self.secondname = secondname
-        self.surname = surname
+        self.lastname = lastname
         self.nick = nick
         self.title = title
         self.companyname = companyname
@@ -23,7 +26,13 @@ class Subscriber:
         self.id = id
 
     def __repr__(self):
-        return "%s:%s" % (self.id, self.firstname)
+        return "%s:%s:%s" % (self.id, self.firstname, self.lastname)
 
     def __eq__(self, other):
-        return self.id == other.id and self.firstname == other.firstname
+        return (self.id is None or other.id is None or self.id == other.id) and self.firstname == other.firstname and self.lastname == other.lastname
+
+    def id_or_max(self):
+        if self.id:
+            return int(self.id)
+        else:
+            return maxsize
