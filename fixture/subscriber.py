@@ -32,7 +32,7 @@ class SubscriberHelper:
         wd = self.app.wd
         self.change_field_value("firstname", subscriber.firstname)
         self.change_field_value("middlename", subscriber.secondname)
-        self.change_field_value("lastname", subscriber.surname)
+        self.change_field_value("lastname", subscriber.lastname)
         self.change_field_value("nickname", subscriber.nick)
         self.change_field_value("title", subscriber.title)
         self.change_field_value("address", subscriber.homeaddress)
@@ -63,6 +63,7 @@ class SubscriberHelper:
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
+        wd.find_element_by_css_selector("div.msgbox")
         self.return_to_home_page()
 
     def select_first_subscriber(self):
@@ -88,7 +89,7 @@ class SubscriberHelper:
         self.open_home_page()
         sub = []
         for element in wd.find_elements_by_css_selector("tr[name=entry]"):
-            text = element.find_element_by_css_selector("td")
+            text = element.find_elements_by_css_selector("td")
             id = element.find_element_by_name("selected[]").get_attribute("value")
-            sub.append(Subscriber(firstname=text, id=id))
+            sub.append(Subscriber(id=id, firstname=text, lastname=text))
         return sub
