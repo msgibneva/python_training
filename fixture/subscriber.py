@@ -89,14 +89,9 @@ class SubscriberHelper:
         self.open_home_page()
         sub = []
         for element in wd.find_elements_by_css_selector("tr[name=entry]"):
-            #first = element.find_element_by_xpath("//td[2]")
-            #last = element.find_element_by_xpath("//td[3]")
-            #id = element.find_element_by_name("selected[]").get_attribute("value")
-            #sub.append(Subscriber(id=id, firstname=first, lastname=last))
-            #cells = []
             cells = element.find_elements_by_css_selector("td")
-            first = cells[1].text
-            last = cells[2].text
+            first = cells[2].text
+            last = cells[1].text
             id = element.find_element_by_name("selected[]").get_attribute("value")
             sub.append(Subscriber(firstname=first, lastname=last, id=id))
         return sub
