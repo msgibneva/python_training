@@ -15,6 +15,7 @@ class SubscriberHelper:
         # submit new subscriber
         wd.find_element_by_name("submit").click()
         self.return_to_home_page()
+        self.sub_cache = None
 
     def edit_first_sub(self, new_subscriber_data):
         wd = self.app.wd
@@ -27,6 +28,7 @@ class SubscriberHelper:
         # submit edited subscriber
         wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
         self.return_to_home_page()
+        self.sub_cache = None
 
     def fill_profile(self, subscriber):
         wd = self.app.wd
@@ -65,6 +67,7 @@ class SubscriberHelper:
         wd.switch_to_alert().accept()
         wd.find_element_by_css_selector("div.msgbox")
         self.return_to_home_page()
+        self.sub_cache = None
 
     def select_first_subscriber(self):
         wd = self.app.wd
@@ -84,14 +87,17 @@ class SubscriberHelper:
         self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
+    sub_cache = None
+
     def get_sub_list(self):
-        wd = self.app.wd
-        self.open_home_page()
-        sub = []
-        for element in wd.find_elements_by_css_selector("tr[name=entry]"):
-            cells = element.find_elements_by_css_selector("td")
-            first = cells[2].text
-            last = cells[1].text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            sub.append(Subscriber(firstname=first, lastname=last, id=id))
-        return sub
+        if self.sub_cache is None:
+            wd = self.app.wd
+            self.open_home_page()
+            self.sub_cache = []
+            for element in wd.find_elements_by_css_selector("tr[name=entry]"):
+                cells = element.find_elements_by_css_selector("td")
+                first = cells[2].text
+                last = cells[1].text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.sub_cache.append(Subscriber(firstname=first, lastname=last, id=id))
+        return list(self.sub_cache)

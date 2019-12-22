@@ -8,8 +8,8 @@ def test_edit_sub_name(app):
     if app.subscriber.count() == 0:
         app.subscriber.create(Subscriber(firstname="name"))
     app.subscriber.edit_first_sub(subscriber)
+    assert len(old_sub) == app.subscriber.count()
     new_sub = app.subscriber.get_sub_list()
-    assert len(old_sub) == len(new_sub)
     old_sub[0] = subscriber
     assert sorted(old_sub, key=Subscriber.id_or_max) == sorted(new_sub, key=Subscriber.id_or_max)
 
@@ -20,7 +20,7 @@ def test_edit_sub_lastname(app):
     if app.subscriber.count() == 0:
         app.subscriber.create(Subscriber(firstname="name"))
     app.subscriber.edit_first_sub(subscriber)
+    assert len(old_sub) == app.subscriber.count()
     new_sub = app.subscriber.get_sub_list()
-    assert len(old_sub) == len(new_sub)
     old_sub[0] = subscriber
     assert sorted(old_sub, key=Subscriber.id_or_max) == sorted(new_sub, key=Subscriber.id_or_max)
