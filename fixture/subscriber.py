@@ -23,9 +23,8 @@ class SubscriberHelper:
     def edit_sub_by_index(self, new_subscriber_data, index):
         wd = self.app.wd
         self.open_home_page()
-        self.select_subscriber_by_index(index)
-        # submit edition
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        # choose subscriber
+        self.select_modifying_subscriber(index)
         # edit profile
         self.fill_profile(new_subscriber_data)
         # submit edited subscriber
@@ -82,6 +81,10 @@ class SubscriberHelper:
     def select_subscriber_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_modifying_subscriber(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
 
     def return_to_home_page(self):
         wd = self.app.wd
