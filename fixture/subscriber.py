@@ -120,7 +120,8 @@ class SubscriberHelper:
                 last = cells[1].text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 all_phones = cells[5].text
-                self.sub_cache.append(Subscriber(firstname=first, lastname=last, id=id, all_phones_frome_home_page=all_phones))
+                all_emails = cells[4].text
+                self.sub_cache.append(Subscriber(firstname=first, lastname=last, id=id, all_phones_frome_home_page=all_phones, all_emails_frome_home_page=all_emails))
         return list(self.sub_cache)
 
     def get_info_from_edit_page(self, index):
@@ -133,7 +134,11 @@ class SubscriberHelper:
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         work = wd.find_element_by_name("work").get_attribute("value")
         sechomenumber = wd.find_element_by_name("phone2").get_attribute("value")
-        return Subscriber(firstname=firstname, lastname=lastname, id=id, homephone=homephone, mobilephone=mobilephone, work=work, sechomenumber=sechomenumber)
+        email1 = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
+        return Subscriber(firstname=firstname, lastname=lastname, id=id, homephone=homephone, mobilephone=mobilephone, work=work, sechomenumber=sechomenumber,
+                          email1=email1, email2=email2, email3=email3)
 
     def get_sub_from_view_page(self, index):
         wd = self.app.wd

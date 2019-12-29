@@ -4,7 +4,8 @@ from sys import maxsize
 class Subscriber:
 
     def __init__(self, firstname=None, secondname=None, lastname=None, nick=None, title=None, companyname=None, homeaddress=None, homephone=None,
-                              mobilephone=None, work=None, faxnumber=None, all_phones_frome_home_page=None, email1=None, email2=None, email3=None, homesite=None, addresssec=None, sechomenumber=None, notes=None, id=None):
+                              mobilephone=None, work=None, faxnumber=None, all_phones_frome_home_page=None, email1=None, email2=None, email3=None,
+                 all_emails_frome_home_page=None, homesite=None, addresssec=None, sechomenumber=None, notes=None, id=None):
         self.firstname = firstname
         self.secondname = secondname
         self.lastname = lastname
@@ -25,6 +26,7 @@ class Subscriber:
         self.notes = notes
         self.id = id
         self.all_phones_frome_home_page = all_phones_frome_home_page
+        self.all_emails_frome_home_page = all_emails_frome_home_page
 
     def __repr__(self):
         return "%s:%s:%s" % (self.id, self.firstname, self.lastname)
