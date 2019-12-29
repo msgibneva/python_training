@@ -1,4 +1,5 @@
 from model.subscriber import Subscriber
+import re
 
 class SubscriberHelper:
 
@@ -24,7 +25,7 @@ class SubscriberHelper:
         wd = self.app.wd
         self.open_home_page()
         # choose subscriber
-        self.select_modifying_subscriber(index)
+        self.open_sub_page_by_index(index)
         # edit profile
         self.fill_profile(new_subscriber_data)
         # submit edited subscriber
@@ -82,8 +83,9 @@ class SubscriberHelper:
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
 
-    def select_modifying_subscriber(self, index):
+    def open_sub_page_by_index(self, index):
         wd = self.app.wd
+        self.open_home_page()
         wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
 
     def return_to_home_page(self):
@@ -94,6 +96,11 @@ class SubscriberHelper:
         wd = self.app.wd
         if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_name("add"))) > 0:
             wd.get("http://localhost/addressbook/")
+
+    def open_sub_from_view_page(self, index):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_elements_by_xpath("//img[@alt='Details']")[index].click()
 
     def count(self):
         wd = self.app.wd
@@ -112,5 +119,29 @@ class SubscriberHelper:
                 first = cells[2].text
                 last = cells[1].text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.sub_cache.append(Subscriber(firstname=first, lastname=last, id=id))
+                all_phones = cells[5].text.splitlines()
+                self.sub_cache.append(Subscriber(firstname=first, lastname=last, id=id,
+                                                 homephone=all_phones[0], mobilephone=all_phones[1], work=all_phones[2], sechomenumber=all_phones[3]))
         return list(self.sub_cache)
+
+    def get_info_from_edit_page(self, index):
+        wd = self.app.wd
+        self.open_sub_page_by_index(index)
+        firstname = wd.find_element_by_name("firstname").get_attribute("value")
+        lastname = wd.find_element_by_name("lastname").get_attribute("value")
+        id = wd.find_element_by_name("id").get_attribute("value")
+        homephone = wd.find_element_by_name("home").get_attribute("value")
+        mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
+        work = wd.find_element_by_name("work").get_attribute("value")
+        sechomenumber = wd.find_element_by_name("phone2").get_attribute("value")
+        return Subscriber(firstname=firstname, lastname=lastname, id=id, homephone=homephone, mobilephone=mobilephone, work=work, sechomenumber=sechomenumber)
+
+    def get_sub_from_view_page(self, index):
+        wd = self.app.wd
+        self.open_sub_from_view_page(index)
+        text = wd.find_element_by_id("content").text
+        homephone = re.search("H: (.*)", text).group(1)
+        mobilephone = re.search("M: (.*)", text).group(1)
+        work = re.search("W: (.*)", text).group(1)
+        sechomenumber = re.search("P: (.*)", text).group(1)
+        return Subscriber(homephone=homephone, mobilephone=mobilephone, work=work, sechomenumber=sechomenumber)
