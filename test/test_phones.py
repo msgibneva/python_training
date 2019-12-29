@@ -1,9 +1,12 @@
 import re
+from random import randrange
 
 
 def test_phones_on_home_page(app):
-    subscriber_from_home_page = app.subscriber.get_sub_list()[0]
-    subscriber_from_edit_page = app.subscriber.get_info_from_edit_page(0)
+    old_sub = app.subscriber.get_sub_list()
+    index = randrange(len(old_sub))
+    subscriber_from_home_page = app.subscriber.get_sub_list()[index]
+    subscriber_from_edit_page = app.subscriber.get_info_from_edit_page(index)
     assert subscriber_from_home_page.all_phones_frome_home_page == merge_phones_like_on_home_page(subscriber_from_edit_page)
 
 def test_phones_on_sub_view_page(app):
