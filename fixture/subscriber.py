@@ -119,9 +119,8 @@ class SubscriberHelper:
                 first = cells[2].text
                 last = cells[1].text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                all_phones = cells[5].text.splitlines()
-                self.sub_cache.append(Subscriber(firstname=first, lastname=last, id=id,
-                                                 homephone=all_phones[0], mobilephone=all_phones[1], work=all_phones[2], sechomenumber=all_phones[3]))
+                all_phones = cells[5].text
+                self.sub_cache.append(Subscriber(firstname=first, lastname=last, id=id, all_phones_frome_home_page=all_phones))
         return list(self.sub_cache)
 
     def get_info_from_edit_page(self, index):
