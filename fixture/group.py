@@ -7,6 +7,7 @@ class GroupHelper:
 
     def open_groups_page(self):
         wd = self.app.wd
+        wd.get("http://localhost/addressbook/group.php")
         if not (wd.current_url.endswith("/group.php") and len(wd.find_elements_by_name("new"))) > 0:
             wd.find_element_by_link_text("groups").click()
 
@@ -20,7 +21,7 @@ class GroupHelper:
         # submit new group creation
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page()
-        self.group_cache=None
+        self.group_cache = None
 
     def edit_first_group(self):
         self.edit_group_by_index(0)
