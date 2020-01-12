@@ -2,8 +2,8 @@
 from model.subscriber import Subscriber
 
 
-def test_add_sub(app, data_subscribers):
-    subscriber = data_subscribers
+def test_add_sub(app, json_subscribers):
+    subscriber = json_subscribers
     old_sub = app.subscriber.get_sub_list()
     app.subscriber.create(subscriber)
     assert len(old_sub) + 1 == app.subscriber.count()

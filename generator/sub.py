@@ -14,7 +14,7 @@ except getopt.GetoptError as err:
     sys.exit(2)
 
 n = 5
-f = "data/sub.json"
+f = "data/subscribers.json"
 
 for o, a in opts:
     if o == "-n":
@@ -35,6 +35,5 @@ testdata = [Subscriber(firstname ="", secondname ="", lastname="", nick="", titl
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 
 with open(file, "w") as out:
-    #f.write(json.dumps(testdata, default=lambda x: x.__dict__, indent=2))
     jsonpickle.set_encoder_options("json", indent=2)
     out.write(jsonpickle.encode(testdata))
