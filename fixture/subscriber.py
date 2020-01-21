@@ -75,6 +75,17 @@ class SubscriberHelper:
         self.return_to_home_page()
         self.sub_cache = None
 
+    def delete_subscriber_by_id(self, id):
+        wd = self.app.wd
+        self.open_home_page()
+        self.select_subscriber_by_id(id)
+        # submit deletion
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        wd.find_element_by_css_selector("div.msgbox")
+        self.return_to_home_page()
+        self.sub_cache = None
+
     def select_first_subscriber(self):
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
@@ -82,6 +93,10 @@ class SubscriberHelper:
     def select_subscriber_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_subscriber_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
     def open_sub_page_by_index(self, index):
         wd = self.app.wd
