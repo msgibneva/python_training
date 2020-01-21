@@ -1,7 +1,7 @@
 from model.subscriber import Subscriber
 import random
 
-def test_delete_first_subscriber(app, db):
+def test_delete_first_subscriber(app, db, check_ui):
     old_sub = db.get_sub_list()
     if len(db.get_sub_list()) == 0:
         app.subscriber.create(Subscriber(firstname="subname"))
@@ -11,6 +11,8 @@ def test_delete_first_subscriber(app, db):
     new_sub = db.get_sub_list()
     old_sub.remove(subscriber)
     assert old_sub == new_sub
+    if check_ui:
+        assert sorted(new_sub, key=Subscriber.id_or_max) == sorted(app.group.get_sub_list(),  key=Subscriber.id_or_max)
 
 #def test_delete_first_subscriber(app):
 #    old_sub = app.subscriber.get_sub_list()

@@ -33,6 +33,19 @@ class SubscriberHelper:
         self.return_to_home_page()
         self.sub_cache = None
 
+    def edit_sub_by_id(self, new_subscriber_data, id):
+        wd = self.app.wd
+        self.open_home_page()
+        # choose subscriber
+        self.select_subscriber_by_id(id)
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        # edit profile
+        self.fill_profile(new_subscriber_data)
+        # submit edited subscriber
+        wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
+        self.return_to_home_page()
+        self.sub_cache = None
+
     def fill_profile(self, subscriber):
         wd = self.app.wd
         self.change_field_value("firstname", subscriber.firstname)
