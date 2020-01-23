@@ -1,12 +1,12 @@
 import pymysql.cursors
-from fixture.db import DbFixture
+from fixture.orm import ORMFixture
 
-db = DbFixture(host="127.0.0.1", name="addressbook", user="root", password="")
+db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
 
 try:
-    subscribers = db.get_sub_list()
-    for subscriber in subscribers:
-        print(subscriber)
-    print(len(subscribers))
+    l = db.get_sub_list()
+    for item in l:
+        print(item)
+    print(len(l))
 finally:
-    db.destroy()
+    pass
