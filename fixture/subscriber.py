@@ -125,6 +125,11 @@ class SubscriberHelper:
         if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_name("add"))) > 0:
             wd.find_element_by_link_text("home").click()
 
+    def open_group_page(self):
+        wd = self.app.wd
+        if not (wd.current_url.endswith('/group.php') and len(wd.find_elements_by_name("new")) > 0):
+            wd.find_element_by_partial_link_text("group page").click()
+
     def open_sub_from_view_page(self, index):
         wd = self.app.wd
         self.open_home_page()
@@ -180,3 +185,33 @@ class SubscriberHelper:
         work = re.search("W: (.*)", text).group(1)
         sechomenumber = re.search("P: (.*)", text).group(1)
         return Subscriber(homephone=homephone, mobilephone=mobilephone, work=work, sechomenumber=sechomenumber)
+
+    def add_sub_to_group(self, subscriber, group):
+        wd = self.app.wd
+        self.return_to_home_page()
+        self.select_subscriber_by_id(subscriber.id)
+        self.select_group_to_add_by_id(group.id)
+        wd.find_element_by_name("add").click()
+        self.open_home_page()
+
+    def select_sub_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+
+    def select_group_to_add_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("select[name='to_group']").click()
+        wd.find_element_by_css_selector("select[name='to_group'] option[value='%s']" % id).click()
+
+    def select_group_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("select[name='group']").click()
+        wd.find_element_by_css_selector("select[name='group'] option[value='%s']" % id).click()
+
+    def delete_sub_from_group_by_id(self, sub, group):
+        wd = self.app.wd
+        self.return_to_home_page()
+        self.select_group_by_id(group.id)
+        self.select_sub_by_id(sub.id)
+        wd.find_element_by_name("remove").click()
+        self.open_group_page()
