@@ -1,0 +1,11 @@
+pytest
+pytest_bdd
+selenium
+jsonpickle
+pony
+pymysql
+--allow_external mysql-connector-python
+mysql-connector-python
+lxml-3.4.4-cp34-none-win32.whl
+pytest-allure-adaptor
+robotframework-python3
