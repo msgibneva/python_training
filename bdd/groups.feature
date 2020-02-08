@@ -15,4 +15,4 @@ Scenario: Delete a group
     Given a non-empty group list
     Given a random group from the list
     When I delete the group from the list
-    Then the new group list is equal to the old group list without the deleted group
+    Then the new group list is equal to the old list without the deleted group
