@@ -65,5 +65,4 @@ class ORMFixture:
 
     @db_session
     def get_sub_in_groups(self):
-        orm_sub = list(select(g for g in ORMFixture.ORMSubscriber if g.groups))
-        return self.convert_subscribers_to_model(orm_sub)
+        return self.convert_subscribers_to_model(select(g for g in ORMFixture.ORMSubscriber if g.groups))
