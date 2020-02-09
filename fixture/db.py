@@ -37,7 +37,7 @@ class DbFixture():
             cursor.close()
         return list
 
-    def get_sub_from_group(self, group_id):
+    def get_sub_in_group(self, group_id):
         list = []
         cursor = self.connection.cursor()
         try:
