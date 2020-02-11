@@ -1,22 +1,18 @@
 # -*- coding: utf-8 -*-
 from model.subscriber import Subscriber
+import allure
+
 
 
 def test_add_sub(app, db, json_subscribers, check_ui):
     subscriber = json_subscribers
-    old_sub = db.get_sub_list()
-    app.subscriber.create(subscriber)
-    new_sub = db.get_sub_list()
-    old_sub.append(subscriber)
-    assert sorted(old_sub, key=Subscriber.id_or_max) == sorted(new_sub, key=Subscriber.id_or_max)
-    if check_ui:
-        assert sorted(new_sub, key=Subscriber.id_or_max) == sorted(app.subscriber.get_sub_list(), key=Subscriber.id_or_max)
-
-#def test_add_sub(app, json_subscribers):
-#    subscriber = json_subscribers
-#    old_sub = app.subscriber.get_sub_list()
-#    app.subscriber.create(subscriber)
-#    assert len(old_sub) + 1 == app.subscriber.count()
-#    new_sub = app.subscriber.get_sub_list()
-#    old_sub.append(subscriber)
-#    assert sorted(old_sub, key=Subscriber.id_or_max) == sorted(new_sub, key=Subscriber.id_or_max)
+    with allure.step('Given a subscribers list'):
+        old_sub = db.get_sub_list()
+    with allure.step('When I add a subscriber %s to the list' % subscriber):
+        app.subscriber.create(subscriber)
+    with allure.step('Then the new subscribers list is equal to the old list with the added subscriber'):
+        new_sub = db.get_sub_list()
+        old_sub.append(subscriber)
+        assert sorted(old_sub, key=Subscriber.id_or_max) == sorted(new_sub, key=Subscriber.id_or_max)
+        if check_ui:
+            assert sorted(new_sub, key=Subscriber.id_or_max) == sorted(app.subscriber.get_sub_list(), key=Subscriber.id_or_max)
